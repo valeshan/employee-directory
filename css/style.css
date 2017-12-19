@@ -8,13 +8,24 @@ h1{
 }
 
 .title{
+  margin-top: 100px;
+  padding-left: 40px;
+}
 
+.employee-list{
+  display: grid;
+  grid-template-columns: repeat(3, 20%);
+  grid-template-rows: repeat(4, 20%);
 }
 
 
 ul {
   list-style-type: none;
 }
+
+
+/****** CARD CONTENT LAYOUT ******/
+
 
 img{
   position: absolute;
@@ -38,6 +49,16 @@ li{
   border-radius: 5px;
   background-color: white;
 }
+
+li:nth-child(3n +2){
+  margin: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+
+
+/****** TEXT ******/
 
 p{
   margin: auto;

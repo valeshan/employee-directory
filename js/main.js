@@ -41,47 +41,50 @@ function empList(employees){
 
 
 //employee modal
-
-function modalShow(employees){
+function modalWindow(employees){
   $("li").click(function(e){
     e.preventDefault();
-
-    //id of selected employee
-    const id = $(this).attr('id');
-
-    //img of employee
+    const currentID = $(this).attr('id');
     const src= $('img', this).attr('src');
-    $image.attr('src', src);
 
-    //basic info of employee
-    const name = $('.name', this).text();
-    const email = $('.email', this).text();
-    const city = $('.city', this).text();
+  function modalShow(id){
+      //id of selected employee
 
-    $basicInfo.append(`<p class = "name primary"><b>${name}<b></p>`);
-    $basicInfo.append(`<p class = "email secondary"> ${email}</p>`);
-    $basicInfo.append(`<p class = "city secondary"> ${city}</p>`);
+      //img of employee
 
-    $basicInfo.append(`<hr>`);
+      $image.attr('src', src);
 
-    //secondary info of employee
-    const phone = pFormat(employees[id].phone);
-    const street = capitalise(employees[id].location.street);
-    const state = initLetters(employees[id].location.state);
-    const postcode = employees[id].location.postcode;
-    const day = employees[id].dob.slice(8,10);
-    const month = employees[id].dob.slice(5,7);
-    const year = employees[id].dob.slice(1,3);
+      //basic info of employee
+      const name = $('.name', this).text();
+      const email = $('.email', this).text();
+      const city = $('.city', this).text();
 
-    $secondaryInfo.append(`<p class = "phone tertiary"> ${phone}</p>`);
-    $secondaryInfo.append(`<p class = "street tertiary"> ${street}, ${state}, ${postcode}</p>`);
-    $secondaryInfo.append(`<p class = "dob tertiary">Birthday:  ${day}/${month}/${year}</p>`);
+      $basicInfo.append(`<p class = "name primary"><b>${name}<b></p>`);
+      $basicInfo.append(`<p class = "email secondary"> ${email}</p>`);
+      $basicInfo.append(`<p class = "city secondary"> ${city}</p>`);
 
-    $overlay.show();
-    $modal.show();
+      $basicInfo.append(`<hr>`);
+
+      //secondary info of employee
+      const phone = pFormat(employees[id].phone);
+      const street = capitalise(employees[id].location.street);
+      const state = initLetters(employees[id].location.state);
+      const postcode = employees[id].location.postcode;
+      const day = employees[id].dob.slice(8,10);
+      const month = employees[id].dob.slice(5,7);
+      const year = employees[id].dob.slice(1,3);
+
+      $secondaryInfo.append(`<p class = "phone tertiary"> ${phone}</p>`);
+      $secondaryInfo.append(`<p class = "street tertiary"> ${street}, ${state}, ${postcode}</p>`);
+      $secondaryInfo.append(`<p class = "dob tertiary">Birthday:  ${day}/${month}/${year}</p>`);
+
+      $overlay.show();
+      $modal.show();
+      nextShow(id)
+    };
+    modalShow(currentID);
   });
 }
-
 
 //capitalise
 function capitalise(entry){
@@ -135,14 +138,19 @@ $close.click(function(e){
 })
 
 //next employee
-
-$next.click(function(e){
+function nextShow(id){
+  $next.click(function(e){
   e.preventDefault();
-  $image.removeAttr('src');
-  $basicInfo.empty();
-  $secondaryInfo.empty();
+    const newID = id+1;
+    $image.removeAttr('src');
+
+    console.log(newID);
+    $basicInfo.empty();
+    $secondaryInfo.empty();
+    modalShow(newID);
 
 })
+}
 
 
 //previous employee
@@ -157,7 +165,7 @@ $.ajax('https://randomuser.me/api/?results=12', {
     console.log(data.results);
     let employees = data.results;
     empList(employees);
-    modalShow(employees);
+    modalWindow(employees);
     }
   });
 });

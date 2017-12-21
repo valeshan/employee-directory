@@ -37,7 +37,7 @@ img{
   margin: auto;
   width: 24%;
   height: 60%;
-  border-radius: 50%;
+  border-radius: 5px;
 }
 
 li{
@@ -83,7 +83,7 @@ p[class='city'] {
 }
 
 
-#modal{
+#overlay{
   background: rgba(0,0,0, 0.7);
   width: 100%;
   height: 100%;
@@ -91,4 +91,57 @@ p[class='city'] {
   top: 0;
   left: 0;
   display: none;
+}
+
+
+/****** MODAL ******/
+
+#modal{
+position: relative;
+margin-left: 32em;
+margin-top: 10em;
+border-radius: 10px;
+background-color: white;
+height: 550px;
+width: 450px;
+text-align: center;
+}
+
+
+#modal-image{
+  position: absolute;
+  margin-top: 1em;
+  width: 9em;
+  height: 9em;
+  text-align: center;
+}
+
+#basicInfo{
+  position: absolute;
+  margin-top: 11.5em;
+  text-align: center;
+  padding: auto;
+  font-size: 1em;
+}
+
+hr{
+  color: #8c8c8c;
+  margin-top: 1.5em;
+  text-align: center;
+}
+
+
+#secondaryInfo{
+  position: absolute;
+  color: #8c8c8c;
+  margin-top: 20em;
+  text-align: center;
+}
+
+.secondary{
+  color: #8c8c8c;
+}
+
+.tertiary{
+  padding-top: 0.5em;
 }

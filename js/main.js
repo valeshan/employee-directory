@@ -138,7 +138,10 @@ $close.click(function(e){
 
 $next.click(function(e){
   e.preventDefault();
-  
+  $image.removeAttr('src');
+  $basicInfo.empty();
+  $secondaryInfo.empty();
+
 })
 
 

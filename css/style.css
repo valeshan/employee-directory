@@ -152,6 +152,7 @@ text-align: center;
 #basicInfo{
   position: absolute;
   margin-top: 11.5em;
+  margin-left: 4em;
   text-align: center;
   padding: auto;
   font-size: 1em;
@@ -161,6 +162,7 @@ hr{
   color: #8c8c8c;
   margin: auto;
   text-align: center;
+  margin-left: 5em;
 }
 
 
@@ -169,6 +171,7 @@ hr{
   color: #8c8c8c;
   margin-top: 20em;
   text-align: center;
+  margin-left: 2.5em;
 }
 
 .secondary{

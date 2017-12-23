@@ -1,5 +1,5 @@
 
-/****** BASE CONTENT LAYOUT ******/
+/********************** BASE CONTENT LAYOUT **********************/
 
 body{
   font-family: 'Open Sans', sans-serif;
@@ -11,77 +11,90 @@ h1{
 }
 
 
-
 .employee-list{
   display: grid;
   grid-template-columns: repeat(3, 20%);
   grid-template-rows: repeat(4, 20%);
-  grid-gap: 0px;
+  grid-gap: 0.5em;
 }
-
 
 ul {
   list-style-type: none;
 }
 
-
-/****** CARD CONTENT LAYOUT ******/
-
-
 img{
-  position: absolute;
-  display: inline;
-  padding-top: 25px;
-  padding-left: 15px;
-  display: block;
-  margin: auto;
-  width: 24%;
-  height: 60%;
-  border-radius: 5px;
+  width: 26%;
+  height: 65%;
+  border-radius: 50%;
 }
 
+button{
+ height: 2em;
+ width: 2em;
+}
+
+
+/********************** CARD CONTENT LAYOUT **********************/
+
+
 li{
+  display: flex;
+  flex-wrap: wrap;
   position: relative;
-  width: 380px;
-  height: 150px;
+  height: 12em;
+  align-items: flex-start;
+  justify-content: space-around;
   border-style: solid;
   border-width: thin;
   border-color: #d9d9d9;
-  border-radius: 5px;
+  border-radius: 0.5em;
   background-color: white;
-  margin-bottom: 12px;
 }
 
 
+.list-img{
+  position: absolute;
+  flex-grow: 2;
+  display: inline;
+  margin-left: -15em;
+  margin-top: 2em;
+}
 
-
-/****** TEXT ******/
+/********************** TEXT **********************/
 
 .title{
-  margin-top: 100px;
-  padding-left: 40px;
+  display: inline-block;
+  margin-top: 6em;;
+  padding-left: 2.2em;
 }
 
 p{
-  margin: auto;
+  margin-left: 2em;
+}
+
+
+p[class='name']{
+  margin-top: 1em;
 }
 
 
 p[class='email'],
 p[class='city'] {
  color: #8c8c8c;
- padding-top: 5px;
  font-size: 0.8em;
 }
 
 .info{
+  flex-grow: 1;
   position: absolute;
   display: inline-block;
   padding-left: 35px;
   left: 100px;
-  padding-top: 35px;
+  padding-top: 1.6em;
 }
 
+
+/********************** MODAL AND OVERLAY **********************/
 
 #overlay{
   background: rgba(0,0,0, 0.5);
@@ -93,10 +106,8 @@ p[class='city'] {
   display: none;
 }
 
-
-/****** MODAL ******/
-
 #modal{
+display: flex;
 position: relative;
 margin-left: 32em;
 margin-top: 10em;
@@ -108,12 +119,34 @@ text-align: center;
 }
 
 
+#prev,
+#next{
+  margin-top: 38em;
+}
+
+#close{
+  margin-left: auto;
+}
+
+#prev{
+  margin-left: 13em;
+}
+
+#next{
+  margin-left: 3em;
+}
+
+#basicInfo,
+#secondaryInfo{
+  margin: auto;
+}
+
 #modal-image{
   position: absolute;
-  margin-top: 1em;
   width: 9em;
   height: 9em;
-  text-align: center;
+  margin-left: 9em;
+  margin-top: 2em;
 }
 
 #basicInfo{
@@ -126,7 +159,7 @@ text-align: center;
 
 hr{
   color: #8c8c8c;
-  margin-top: 1.5em;
+  margin: auto;
   text-align: center;
 }
 
@@ -144,4 +177,17 @@ hr{
 
 .tertiary{
   padding-top: 0.5em;
+}
+
+
+/********************** SEARCH BAR **********************/
+
+
+#search-bar{
+  margin-left: 51em;
+  display: inline;
+  font-size: 1.1em;
+  padding: 5px;
+  height: 25px;
+  border-radius: 5px;
 }

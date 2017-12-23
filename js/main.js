@@ -1,3 +1,5 @@
+//********************** LAYOUT FORMAT **********************//
+
 const $empList = $(".employee-list");
 const $searchBar = $('#search-bar');
 
@@ -26,7 +28,8 @@ $modal.append($secondaryInfo);
 $overlay.append($modal);
 $("body").append($overlay);
 
-//********************** FORMAT FUNCTIONS **********************//
+//********************** INFORMATION FORMAT FUNCTIONS **********************//
+
 //capitalise
 function capitalise(entry){
   let capEntry = "";
@@ -68,10 +71,10 @@ function pFormat(phone){
 
 //********************** LIST OF EMPLOYEES **********************//
 
-//list of employees
+//list of employees on page load
 function empList(employees){
   $.each(employees, function(i, employee){
-        $empList.append('<li class= "employee" id = "'+ i + '">'+  '<a><img src="' + employee.picture.large +'"><div class = "info">'
+        $empList.append('<li class= "employee" id = "'+ i + '">'+  '<a><img class = "list-img" src="' + employee.picture.large +'"><div class = "info">'
           + '<p class = "name primary"><b>' + capitalise(employee.name.first)
           +' ' + capitalise(employee.name.last) + '</b></p>'
           + '<p class = "email secondary">' + employee.email + '</p>'
@@ -89,9 +92,6 @@ function modalWindow(employees){
   $("li").click(function(e){
     e.preventDefault();
     const currentID = $(this).attr('id');
-//    const src= $('img', this).attr('src');
-
-
     modalShow(employees, currentID);
   });
 };
@@ -132,12 +132,13 @@ function modalShow(employees, id){
     $modal.show();
     nextShow(employees, id);
     prevShow(employees, id);
-  };
+};
 
 
+//******* CLICKABLE FUNCTIONS *******//
 
-//Clickable buttons
 
+//Buttons
 //hide and clear modal
 
 $close.click(function(e){
@@ -151,48 +152,44 @@ $close.click(function(e){
 //next employee
 function nextShow(employees, id){
   $next.click(function(e){
-  e.preventDefault();
-  let nextID = parseInt(id)+1;
-  if(id <11){
-      console.log(nextID);
-      $image.removeAttr('src');
-      $basicInfo.empty();
-      $secondaryInfo.empty();
-      modalShow(employees, nextID);
-  }
-})
+    e.preventDefault();
+    let nextID = parseInt(id)+1;
+    if(id <11){
+        $image.removeAttr('src');
+        $basicInfo.empty();
+        $secondaryInfo.empty();
+        modalShow(employees, nextID);
+    }
+  })
 }
 
 
 //previous employee
 function prevShow(employees, id){
   $prev.click(function(e){
-  e.preventDefault();
-  let prevID = parseInt(id)-1;
-  if(id >0){
-    console.log(prevID);
-    $image.removeAttr('src');
-    $basicInfo.empty();
-    $secondaryInfo.empty();
-    modalShow(employees, prevID);
-  }
-})
+    e.preventDefault();
+    let prevID = parseInt(id)-1;
+    if(id >0){
+      $image.removeAttr('src');
+      $basicInfo.empty();
+      $secondaryInfo.empty();
+      modalShow(employees, prevID);
+    }
+  })
 }
 
+//********************** SEARCH BAR **********************//
 
 //search function
 
-function searchBar(){
-  $searchBar.keyup(function(){
-    let searchItem = $searchBar.val().toLowerCase();
-    let searchedEmployees = $('p:contains('+ searchItem + ')').closest('li');
-    console.log(searchedEmployees);
-    $('li').hide();
-    searchedEmployees.show();
-  });
-}
+$searchBar.keyup(function(){
+  let searchItem = $searchBar.val().toLowerCase();
+  let searchedEmployees = $('p:contains('+ searchItem + ')').closest('li');
+  $('li').hide();
+  searchedEmployees.show();
+});
 
-searchBar();
+
 
 //********************** AJAX REQUEST **********************//
 
@@ -202,7 +199,6 @@ $.ajax('https://randomuser.me/api/?results=12', {
   url: 'https://randomuser.me/api/?results=12',
   dataType: 'json',
   success: function(data){
-    console.log(data.results);
     let employees = data.results;
     empList(employees);
     modalWindow(employees);

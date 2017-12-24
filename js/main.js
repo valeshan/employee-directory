@@ -85,7 +85,7 @@ function empList(employees){
 
 
 //********************** EMPLOYEE MODAL **********************//
-
+//modal shows more content of the selected employee
 
 //employee modal
 function modalWindow(employees){
@@ -116,13 +116,13 @@ function modalShow(employees, id){
     $basicInfo.append(`<hr>`);
 
     //secondary info of employee
-    const phone = pFormat(employees[id].phone);
-    const street = capitalise(employees[id].location.street);
-    const state = initLetters(employees[id].location.state);
-    const postcode = employees[id].location.postcode;
-    const day = employees[id].dob.slice(8,10);
-    const month = employees[id].dob.slice(5,7);
-    const year = employees[id].dob.slice(1,3);
+    const phone = pFormat(employee.phone);
+    const street = capitalise(employee.location.street);
+    const state = initLetters(employee.location.state);
+    const postcode = employee.location.postcode;
+    const day = employee.dob.slice(8,10);
+    const month = employee.dob.slice(5,7);
+    const year = employee.dob.slice(1,3);
 
     $secondaryInfo.append(`<p class = "phone tertiary"> ${phone}</p>`);
     $secondaryInfo.append(`<p class = "street tertiary"> ${street}, ${state}, ${postcode}</p>`);

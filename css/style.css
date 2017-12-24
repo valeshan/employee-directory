@@ -13,9 +13,10 @@ h1{
 
 .employee-list{
   display: grid;
-  grid-template-columns: repeat(3, 20%);
-  grid-template-rows: repeat(4, 20%);
+  grid-template-columns: repeat(3, minmax(400px, 500px));
+  grid-template-rows: repeat(4, 250px);
   grid-gap: 0.5em;
+
 }
 
 ul {
@@ -23,8 +24,8 @@ ul {
 }
 
 img{
-  width: 26%;
-  height: 65%;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
 }
 
@@ -38,12 +39,12 @@ button{
 
 
 li{
+  grid-area: "eitem";
   display: flex;
   flex-wrap: wrap;
   position: relative;
-  height: 12em;
   align-items: flex-start;
-  justify-content: space-around;
+  justify-content: space-between;
   border-style: solid;
   border-width: thin;
   border-color: #d9d9d9;
@@ -54,10 +55,9 @@ li{
 
 .list-img{
   position: absolute;
-  flex-grow: 2;
   display: inline;
-  margin-left: -15em;
-  margin-top: 2em;
+  margin-top: 50px;
+  margin-left: 30px;
 }
 
 /********************** TEXT **********************/
@@ -66,6 +66,7 @@ li{
   display: inline-block;
   margin-top: 6em;;
   padding-left: 2.2em;
+  margin-right: 2.5em;
 }
 
 p{
@@ -74,23 +75,19 @@ p{
 
 
 p[class='name']{
-  margin-top: 1em;
 }
 
 
 p[class='email'],
 p[class='city'] {
  color: #8c8c8c;
- font-size: 0.8em;
 }
 
 .info{
-  flex-grow: 1;
   position: absolute;
   display: inline-block;
-  padding-left: 35px;
-  left: 100px;
-  padding-top: 1.6em;
+  padding-left: 200px;
+  padding-top: 60px;
 }
 
 
@@ -98,9 +95,10 @@ p[class='city'] {
 
 #overlay{
   background: rgba(0,0,0, 0.5);
-  width: 100%;
   height: 100%;
-  position: absolute;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
   top: 0;
   left: 0;
   display: none;
@@ -109,7 +107,9 @@ p[class='city'] {
 #modal{
 display: flex;
 position: relative;
-margin-left: 32em;
+align-items: flex-start;
+justify-content: center;
+margin-left: 40%;
 margin-top: 10em;
 border-radius: 10px;
 background-color: white;
@@ -129,40 +129,38 @@ text-align: center;
 }
 
 #prev{
-  margin-left: 13em;
+  margin-left: 10.5em;
 }
 
 #next{
-  margin-left: 3em;
+  margin-left:auto;
 }
 
 #basicInfo,
 #secondaryInfo{
-  margin: auto;
 }
 
 #modal-image{
   position: absolute;
   width: 9em;
   height: 9em;
-  margin-left: 9em;
-  margin-top: 2em;
+  margin-top: 1em;
 }
 
 #basicInfo{
   position: absolute;
   margin-top: 11.5em;
-  margin-left: 4em;
-  text-align: center;
   padding: auto;
   font-size: 1em;
+  text-align: center;
+  margin-left: -1em;
 }
 
 hr{
   color: #8c8c8c;
   margin: auto;
   text-align: center;
-  margin-left: 5em;
+  margin-left: 2em;
 }
 
 
@@ -171,7 +169,7 @@ hr{
   color: #8c8c8c;
   margin-top: 20em;
   text-align: center;
-  margin-left: 2.5em;
+  margin-left: -1em;
 }
 
 .secondary{
@@ -187,7 +185,7 @@ hr{
 
 
 #search-bar{
-  margin-left: 51em;
+  width: 200px;
   display: inline;
   font-size: 1.1em;
   padding: 5px;

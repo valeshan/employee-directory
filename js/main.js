@@ -1,5 +1,7 @@
-const $empList = $(".employee-list");
+//********************** LAYOUT FORMAT **********************//
 
+const $empList = $(".employee-list");
+const $searchBar = $('#search-bar');
 
 //append modal
 const $overlay = $("<div id='overlay'></div>");
@@ -26,62 +28,7 @@ $modal.append($secondaryInfo);
 $overlay.append($modal);
 $("body").append($overlay);
 
-
-//list of employees
-function empList(employees){
-  $.each(employees, function(i, employee){
-        $empList.append('<li class= "employee" id = "'+ i + '">'+  '<a><img src="' + employee.picture.large +'"><div class = "info">'
-          + '<p class = "name primary"><b>' + capitalise(employee.name.first)
-          +' ' + capitalise(employee.name.last) + '</b></p>'
-          + '<p class = "email secondary">' + employee.email + '</p>'
-          + '<p class = "city secondary">' + capitalise(employee.location.city)
-          + '</p></a></div>'+'</li>');
-        });
-}
-
-
-//employee modal
-
-function modalShow(employees){
-  $("li").click(function(e){
-    e.preventDefault();
-
-    //id of selected employee
-    const id = $(this).attr('id');
-
-    //img of employee
-    const src= $('img', this).attr('src');
-    $image.attr('src', src);
-
-    //basic info of employee
-    const name = $('.name', this).text();
-    const email = $('.email', this).text();
-    const city = $('.city', this).text();
-
-    $basicInfo.append(`<p class = "name primary"><b>${name}<b></p>`);
-    $basicInfo.append(`<p class = "email secondary"> ${email}</p>`);
-    $basicInfo.append(`<p class = "city secondary"> ${city}</p>`);
-
-    $basicInfo.append(`<hr>`);
-
-    //secondary info of employee
-    const phone = pFormat(employees[id].phone);
-    const street = capitalise(employees[id].location.street);
-    const state = initLetters(employees[id].location.state);
-    const postcode = employees[id].location.postcode;
-    const day = employees[id].dob.slice(8,10);
-    const month = employees[id].dob.slice(5,7);
-    const year = employees[id].dob.slice(1,3);
-
-    $secondaryInfo.append(`<p class = "phone tertiary"> ${phone}</p>`);
-    $secondaryInfo.append(`<p class = "street tertiary"> ${street}, ${state}, ${postcode}</p>`);
-    $secondaryInfo.append(`<p class = "dob tertiary">Birthday:  ${day}/${month}/${year}</p>`);
-
-    $overlay.show();
-    $modal.show();
-  });
-}
-
+//********************** INFORMATION FORMAT FUNCTIONS **********************//
 
 //capitalise
 function capitalise(entry){
@@ -97,6 +44,7 @@ function capitalise(entry){
 function initLetters(state){
   let stateEntry = "";
   const stateArray = state.split(" ");
+
   if (stateArray.length > 1){
     $.each(stateArray, function(i, word){
       stateEntry += word.charAt(0).toUpperCase()
@@ -108,7 +56,6 @@ function initLetters(state){
 }
 
 //phone no. format
-
 function pFormat(phone){
   let formP = "";
   let finalP = "";
@@ -122,8 +69,76 @@ function pFormat(phone){
   return finalP;
 }
 
-//Clickable buttons
+//********************** LIST OF EMPLOYEES **********************//
 
+//list of employees on page load
+function empList(employees){
+  $.each(employees, function(i, employee){
+        $empList.append('<li class= "employee" id = "'+ i + '">'+  '<a><img class = "list-img" src="' + employee.picture.large +'"><div class = "info">'
+          + '<p class = "name primary"><b>' + capitalise(employee.name.first)
+          +' ' + capitalise(employee.name.last) + '</b></p>'
+          + '<p class = "email secondary">' + employee.email + '</p>'
+          + '<p class = "city secondary">' + capitalise(employee.location.city)
+          + '</p></a></div>'+'</li>');
+        });
+}
+
+
+//********************** EMPLOYEE MODAL **********************//
+//modal shows more content of the selected employee
+
+//employee modal
+function modalWindow(employees){
+  $("li").click(function(e){
+    e.preventDefault();
+    const currentID = $(this).attr('id');
+    modalShow(employees, currentID);
+  });
+};
+
+
+function modalShow(employees, id){
+    //id of selected employee
+    let employee = employees[id];
+    //img of employee
+    const src = employee.picture.large;
+    $image.attr('src', src);
+
+    //basic info of employee
+    const name = `${capitalise(employee.name.first)} ${capitalise(employee.name.last)}`;
+    const email = employee.email;
+    const city = capitalise(employee.location.city);
+
+    $basicInfo.append(`<p class = "name primary"><b>${name}<b></p>`);
+    $basicInfo.append(`<p class = "email secondary"> ${email}</p>`);
+    $basicInfo.append(`<p class = "city secondary"> ${city}</p>`);
+
+    $basicInfo.append(`<hr>`);
+
+    //secondary info of employee
+    const phone = pFormat(employee.phone);
+    const street = capitalise(employee.location.street);
+    const state = initLetters(employee.location.state);
+    const postcode = employee.location.postcode;
+    const day = employee.dob.slice(8,10);
+    const month = employee.dob.slice(5,7);
+    const year = employee.dob.slice(1,3);
+
+    $secondaryInfo.append(`<p class = "phone tertiary"> ${phone}</p>`);
+    $secondaryInfo.append(`<p class = "street tertiary"> ${street}, ${state}, ${postcode}</p>`);
+    $secondaryInfo.append(`<p class = "dob tertiary">Birthday:  ${day}/${month}/${year}</p>`);
+
+    $overlay.show();
+    $modal.show();
+    nextShow(employees, id);
+    prevShow(employees, id);
+};
+
+
+//******* CLICKABLE FUNCTIONS *******//
+
+
+//Buttons
 //hide and clear modal
 
 $close.click(function(e){
@@ -135,18 +150,48 @@ $close.click(function(e){
 })
 
 //next employee
-
-$next.click(function(e){
-  e.preventDefault();
-  $image.removeAttr('src');
-  $basicInfo.empty();
-  $secondaryInfo.empty();
-
-})
+function nextShow(employees, id){
+  $next.click(function(e){
+    e.preventDefault();
+    let nextID = parseInt(id)+1;
+    if(id <11){
+        $image.removeAttr('src');
+        $basicInfo.empty();
+        $secondaryInfo.empty();
+        modalShow(employees, nextID);
+    }
+  })
+}
 
 
 //previous employee
+function prevShow(employees, id){
+  $prev.click(function(e){
+    e.preventDefault();
+    let prevID = parseInt(id)-1;
+    if(id >0){
+      $image.removeAttr('src');
+      $basicInfo.empty();
+      $secondaryInfo.empty();
+      modalShow(employees, prevID);
+    }
+  })
+}
 
+//********************** SEARCH BAR **********************//
+
+//search function
+
+$searchBar.keyup(function(){
+  let searchItem = $searchBar.val().toLowerCase();
+  let searchedEmployees = $('p:contains('+ searchItem + ')').closest('li');
+  $('li').hide();
+  searchedEmployees.show();
+});
+
+
+
+//********************** AJAX REQUEST **********************//
 
 //ajax request
 $(function(){
@@ -154,10 +199,9 @@ $.ajax('https://randomuser.me/api/?results=12', {
   url: 'https://randomuser.me/api/?results=12',
   dataType: 'json',
   success: function(data){
-    console.log(data.results);
     let employees = data.results;
     empList(employees);
-    modalShow(employees);
+    modalWindow(employees);
     }
   });
 });
